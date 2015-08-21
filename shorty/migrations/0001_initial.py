@@ -12,7 +12,7 @@ class Migration(SchemaMigration):
         db.create_table(u'shorty_url', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True, blank=True)),
-            ('url_field', self.gf('django.db.models.fields.URLField')(max_length=200)),
+            ('url_field', self.gf('django.db.models.fields.URLField')(max_length=500)),
             ('personal', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('personal_slug', self.gf('django.db.models.fields.CharField')(max_length=125, null=True, blank=True)),
             ('status', self.gf('django.db.models.fields.CharField')(max_length=10)),
@@ -76,7 +76,7 @@ class Migration(SchemaMigration):
             'private': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'private_password': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
             'status': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
-            'url_field': ('django.db.models.fields.URLField', [], {'max_length': '200'}),
+            'url_field': ('django.db.models.fields.URLField', [], {'max_length': '500'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'})
         }
     }

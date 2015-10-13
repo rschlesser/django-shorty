@@ -9,15 +9,19 @@ from shorty import SHORTY_ANONYMOUS_ADD, SHORTY_MODERATE, SHORTY_BANNED,\
 
 __author__ = 'cingusoft'
 
+
 def shorty_filter_url(view):
     @wraps(view)
     def inner(request, slug, *args, **kwargs):
         try:
             #search in personal SLUG
             url = Url.objects.get(personal_slug=slug)
+        except Url.MultipleObjectsReturned:
+            # in case there are more than one entry with the same slug
+            url = Url.objects.filter(personal_slug=slug)[0]
         except Url.DoesNotExist:
             id_url = url_decode(slug)
-            url = get_object_or_404(Url,id=id_url)
+            url = get_object_or_404(Url, id=id_url)
         if SHORTY_MODERATE == True:
             #start moderation
             if url.is_banned:
@@ -28,8 +32,9 @@ def shorty_filter_url(view):
             #refused link
             if url.is_refused:
                 return HttpResponseRedirect(SHORTY_REFUSED)
-        return view(request,url,*args,**kwargs)
+        return view(request, url, *args, **kwargs)
     return inner
+
 
 def shorty_login_required(view):
     @wraps(view)

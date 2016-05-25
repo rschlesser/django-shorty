@@ -3,3 +3,5 @@
 MANIFEST
 MANIFEST.in
 dist/*
+*.pyc
+*.egg-info

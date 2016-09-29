@@ -1,4 +1,5 @@
 from django.http import HttpResponsePermanentRedirect
+from django.views.decorators.cache import never_cache
 
 __author__ = 'cingusoft'
 
@@ -12,6 +13,7 @@ from shorty.utils import url_encode
 from shorty import SHORTY_MODERATE
 
 @shorty_filter_url
+@never_cache
 def shorty_url(request,url_object,private_template='shorty/private.html'):
     
     """ Usage
